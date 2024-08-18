@@ -3,7 +3,7 @@ resource "aws_instance" "moveo_instance" {
   instance_type        = var.instance_type
   key_name             = "moveo-key"
   vpc_security_group_ids = [var.sg_id]
-  availability_zone    = "eu-north-1a"
+  availability_zone    = "eu-north-1b"
   subnet_id            = var.PrSubnet
   tags = {
     Name    = "task-instance"
