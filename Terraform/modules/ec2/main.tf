@@ -6,7 +6,7 @@ resource "aws_instance" "moveo_instance" {
   availability_zone    = "eu-north-1b"
   subnet_id            = var.PrSubnet
   tags = {
-    Name    = "task-instance"
+    Name    = "moveo-task-instance"
   }
   user_data = file("server_setup.sh")
   
