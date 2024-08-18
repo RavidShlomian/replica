@@ -20,12 +20,12 @@ sudo systemctl enable docker
 # Pull the latest Nginx image from the public dockerhub (without any need for login)
 sudo docker pull nginx:latest
 
-# Download configuration files
-curl -o /home/ec2-user/nginx.conf https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/nginx.conf
-curl -o /home/ec2-user/Dockerfile https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/Dockerfile
+# Download configuration files as raw text from the github repository
+sudo curl -o /home/ec2-user/nginx.conf https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/nginx.conf
+sudo curl -o /home/ec2-user/Dockerfile https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/Dockerfile
 mkdir /home/ec2-user/logs
 touch /home/ec2-user/logs/build.txt /home/ec2-user/logs/run.txt
-# Build the Docker image with the -f option because the script run from the directory /var/liv/cloud/instances/instance-id/scripts 
+# Build the Docker image with the -f option because the script run from the directory /var/liv/cloud/instances/instance-id/scripts, added logs for debugging
 sudo docker build -f /home/ec2-user/Dockerfile -t /home/ec2-user nginx >> /home/ec2-user/logs/build.txt
-# Run the Nginx container with the custom configuration file (nginx.conf) as read only beacuse i haven't saw any need for more than that for this scenario
+# Run the Nginx container with the custom configuration file (nginx.conf) as read only beacuse i haven't saw any need for more than that for this scenario, added logs for debugging
 sudo docker run --name nginx -d -p 80:80 -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf:ro nginx >> /home/ec2-user/logs/run.txt
