@@ -27,6 +27,9 @@ jobs:
         id: validate
         run: terraform validate
         working-directory: ./Terraform
+      - name: Terraform Refresh
+        run: terraform refresh
+        working-directory: ./Terraform
       - name: Terraform plan
         id: plan
         run: terraform plan
