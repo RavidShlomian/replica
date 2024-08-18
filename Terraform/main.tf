@@ -17,7 +17,7 @@ module "bastion" {
   source   = "./modules/bastion"
   sg_id    = module.sg.sg_id
   PbSubnet = module.vpc.PbSubnet
-  lb_address = module.alb.alb
+  lb_address = module.alb.dns_name
 }
 
 module "alb" {
