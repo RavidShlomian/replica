@@ -5,7 +5,11 @@ terraform {
       version = "~> 5.0"
     }
   }
-
+  backend "s3" {
+    bucket = "terraform-backend-bucket-moveo"
+    key    = "dev/terraform.tfstate"
+    region = "eu-north-1"
+  }
 }
 
 
