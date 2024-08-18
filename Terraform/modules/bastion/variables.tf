@@ -16,7 +16,3 @@ variable "sg_id" {
 variable "PbSubnet" {
     description = "public subnet for ec2"
 }
-
-variable "lb_address" {
-    description = "public dns name for load balancer"
-}
