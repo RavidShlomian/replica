@@ -29,6 +29,7 @@ sudo docker pull nginx:latest
 curl -o /home/ec2-user/nginx.conf https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/nginx.conf
 curl -o /home/ec2-user/Dockerfile https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/Dockerfile
 
+# Build the Docker image with the -f option because the script run from the directory /var/liv/cloud/instances/instance-id/scripts 
 sudo docker build -f /home/ec2-user/Dockerfile -t /home/ec2-user nginx
 # Run the Nginx container with the custom configuration
 sudo docker run --name nginx -d -p 80:80 -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf:ro nginx
