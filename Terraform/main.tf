@@ -17,6 +17,7 @@ module "bastion" {
   source   = "./modules/bastion"
   sg_id    = module.sg.sg_id
   PbSubnet = module.vpc.PbSubnet
+  lb_address = module.alb.alb
 }
 
 module "alb" {
@@ -26,6 +27,4 @@ module "alb" {
   PbSubnet_2 = module.vpc.PbSubnet_2
   instances  = module.ec2.instances
   vpc_id     = module.vpc.vpc_id
-  lb_address = module.alb.alb
-  
 }
