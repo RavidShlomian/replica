@@ -4,9 +4,9 @@ variable "instance_type" {
 }
 
 variable "ami" {
-  description = "Ubuntu machine image to use for ec2 instance"
+  description = "amazon machine image to use for ec2 instance"
   type        = string
-  default     = "ami-0914547665e6a707c" # Ubuntu 22.04 LTS // eu-north-1
+  default     = "ami-02af70169146bbdd3" # amazon linux // eu-north-1
 }
 
 variable "sg_id" {
