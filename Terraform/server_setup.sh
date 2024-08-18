@@ -15,4 +15,7 @@
   sudo systemctl start docker
   sudo systemctl enable docker
   sudo docker pull nginx:latest
-  curl -o /home/ubuntu/nginx.conf https://raw.githubusercontent.com/ravid/your-repo/main/path/to/nginx.conf
+  curl -o /home/ubuntu/nginx.conf https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/nginx.conf
+  curl -o /home/ubuntu/Dockerfile https://raw.githubusercontent.com/RavidShlomian/Moveo-HLS-Task/feature/Terraform/Dockerfile
+  sudo docker run --name nginx -d -p 80:80 -v /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf:ro nginx
+  
