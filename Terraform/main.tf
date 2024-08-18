@@ -26,4 +26,6 @@ module "alb" {
   PbSubnet_2 = module.vpc.PbSubnet_2
   instances  = module.ec2.instances
   vpc_id     = module.vpc.vpc_id
+  lb_address = module.alb.alb
+  
 }
