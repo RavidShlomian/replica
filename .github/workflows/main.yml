@@ -1,6 +1,7 @@
 name: GitHub Actions CI/CD Pipeline for Terraform Deployment
 run-name: ${{ github.actor }} the user that triggerd the pipeline
-
+runs:
+  using: 'node20'
 on:
   push:
     branches:
