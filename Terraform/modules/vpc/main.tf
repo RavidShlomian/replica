@@ -1,5 +1,5 @@
 
-#Creating a VPC resource
+#Creating the VPC resource block
 resource "aws_vpc" "task-vpc"{
     cidr_block = "10.0.0.0/16"
     tags = {
@@ -7,7 +7,7 @@ resource "aws_vpc" "task-vpc"{
     }
 }
 
-#Creating a public subnet
+#Creating a public subnet for the bastion instance
 resource "aws_subnet" "PbSubnet"{
     vpc_id = aws_vpc.task-vpc.id
     availability_zone = "eu-north-1a"
@@ -24,10 +24,10 @@ resource "aws_subnet" "PbSubnet_2"{
     cidr_block = "10.0.3.0/24"
     map_public_ip_on_launch = true
     tags = {
-        Name = "moveo-public-subnet"
+        Name = "moveo-public-subnet-lb"
     }
 }
-#Creating a ptivate subnet - make sure that subnets dont overlap also for vpc peering if there will be a future need.
+#Creating a ptivate subnet - need to make sure that subnets wont overlap. also for vpc peering if there will be a future need.
 resource "aws_subnet" "PrSubnet"{
     vpc_id = aws_vpc.task-vpc.id
     cidr_block = "10.0.2.0/24"
@@ -38,7 +38,7 @@ resource "aws_subnet" "PrSubnet"{
 }
 
 
-#Creating internet gateway for outside internet access
+#Creating internet gateway for outside internet access for the public subnet. 
 resource "aws_internet_gateway" "igw"{
     vpc_id = aws_vpc.task-vpc.id
         tags = {
@@ -46,7 +46,7 @@ resource "aws_internet_gateway" "igw"{
     }
 }
 
-#Creating route table for public subnet
+#Creating route table for public subnet. In addition, in the route table be dafault there is a "local route" for internal communication inside the vpc.
 resource "aws_route_table" "public_route_table"{
     vpc_id = aws_vpc.task-vpc.id
     route {
@@ -63,7 +63,8 @@ resource "aws_route_table" "public_route_table"{
 resource "aws_eip" "nat" {
   domain = "vpc"
 }
-#Creating the NAT gateway for outside world access
+
+#Creating the NAT gateway for outside world access for the private instance
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.PbSubnet.id

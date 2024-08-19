@@ -1,3 +1,5 @@
+#these are the variables in order to maintain modular code.
+
 variable "sg_id" {
   description = "SG ID for Application Load Balancer"
   type = string

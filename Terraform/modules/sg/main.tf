@@ -1,3 +1,4 @@
+#security groups for access the subnets (its open for all ip addresses because i didn't knew who will access the alb, the reviewer for this project)
 resource "aws_security_group" "sg" {
   name        = "moveo-sg"
   description = "Allow HTTP, SSH inbound traffic"

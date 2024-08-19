@@ -1,9 +1,10 @@
+#instance for nginx container deployment with user data script.
 resource "aws_instance" "moveo_instance" {
   ami                  = var.ami
   instance_type        = var.instance_type
   key_name             = "moveo-key"
   vpc_security_group_ids = [var.sg_id]
-  availability_zone    = "eu-north-1b"
+  availability_zone    = "eu-north-1a"
   subnet_id            = var.PrSubnet
   tags = {
     Name    = "moveo-task-instance-1"

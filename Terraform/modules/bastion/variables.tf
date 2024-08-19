@@ -1,3 +1,5 @@
+#these are the variables in order to maintain modular code.
+
 variable "instance_type" {
   type    = string
   default = "t3.micro"

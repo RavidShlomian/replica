@@ -1,3 +1,4 @@
+#bastion server for ssh directly to the nginx container deployment instance.
 resource "aws_instance" "bastion_instance" {
   ami                  = var.ami
   instance_type        = var.instance_type

@@ -1,4 +1,4 @@
-# ALB
+# ALB for distributing the traffic and also for accessing the instance in the private subnet
 resource "aws_lb" "alb" {
   name               = "moveo-load-balancer"
   internal           = false
@@ -10,7 +10,7 @@ resource "aws_lb" "alb" {
     ]
 }
 
-# Listener for load balancer
+# Listener for load balancer in port 80 
 resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "80"
@@ -22,7 +22,7 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-# Target Group
+# Target group
 resource "aws_lb_target_group" "tg" {
   name     = "tg"
   port     = 80
@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "tg" {
   vpc_id   = var.vpc_id
 }
 
-# Target Group Attachment
+# Target group attachment to the load balancer
 resource "aws_lb_target_group_attachment" "tga" {
   target_group_arn = aws_lb_target_group.tg.arn
   target_id        = var.instances

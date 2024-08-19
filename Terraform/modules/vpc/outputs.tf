@@ -1,3 +1,4 @@
+#here i will output all the values needed for other modules in the configuration
 output "vpc_id" {
     value = aws_vpc.task-vpc.id
 }

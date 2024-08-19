@@ -5,7 +5,8 @@ terraform {
       version = "~> 5.0"
     }
   }
-  backend "s3" { 
+  #after the first initializtion i initilized remote backend in s3 bucket to ensure resilience of the state file 
+  backend "s3" {
     bucket = "terraform-backend-bucket-moveo"
     key    = "dev/terraform.tfstate"
     region = "eu-north-1"
@@ -33,7 +34,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state_c
     }
   }
 }
-
+#state locking so there wont be any chance for 2 or more write to the bucket at the same time
 resource "aws_dynamodb_table" "terraform_locks" {
   name         = "terraform-state-locking"
   billing_mode = "PAY_PER_REQUEST"
