@@ -1,6 +1,5 @@
-#this is a script that installs the dependencies on the instance (amazon linux 2023)
-
 #!/bin/bash
+#this is a script that installs the dependencies on the instance (amazon linux 2023)
 
 echo "starting user_data script" > /var/log/user-data.log
 

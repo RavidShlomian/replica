@@ -7,13 +7,21 @@ variable "instance_type" {
 variable "ami" {
   description = "amazon machine image to use for ec2 instance"
   type        = string
-  default     = "ami-02af70169146bbdd3" # amazon linux // eu-north-1
+  default     = "ami-04e49d62cf88738f1" # amazon linux // eu-west-1
 }
 
 variable "sg_id" {
   description = "sg ID for EC2"
   type = string
 }
+
+
+variable "key_name" {
+  type = string
+  description = "nginx instance key pair"
+  default = "moveo-key"
+} 
+
 variable "PrSubnet" {
     description = "private subnet for ec2"
 }

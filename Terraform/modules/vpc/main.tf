@@ -10,7 +10,7 @@ resource "aws_vpc" "task-vpc"{
 #Creating a public subnet for the bastion instance
 resource "aws_subnet" "PbSubnet"{
     vpc_id = aws_vpc.task-vpc.id
-    availability_zone = "eu-north-1a"
+    availability_zone = "eu-west-1a"
     cidr_block = "10.0.1.0/24"
     map_public_ip_on_launch = true
     tags = {
@@ -20,7 +20,7 @@ resource "aws_subnet" "PbSubnet"{
 #Creating a second public subnet for the load balancer to spread traffic.
 resource "aws_subnet" "PbSubnet_2"{
     vpc_id = aws_vpc.task-vpc.id
-    availability_zone = "eu-north-1b"
+    availability_zone = "eu-west-1b"
     cidr_block = "10.0.3.0/24"
     map_public_ip_on_launch = true
     tags = {

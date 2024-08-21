@@ -7,27 +7,27 @@ terraform {
   }
   #after the first initializtion i initilized remote backend in s3 bucket to ensure resilience of the state file 
   backend "s3" {
-    bucket = "terraform-backend-bucket-moveo"
+    bucket = "terraform-backend-bucket-moveo-ravid"
     key    = "dev/terraform.tfstate"
-    region = "eu-north-1"
+    region = "eu-west-1"
   }
 }
 
 
-resource "aws_s3_bucket" "terraform_state" {
-  bucket        = "terraform-backend-bucket-moveo"
+resource "aws_s3_bucket" "terraform_state_moveo" {
+  bucket        = "terraform-backend-bucket-moveo-ravid"
   force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "terraform_bucket_versioning" {
-  bucket = aws_s3_bucket.terraform_state.id
+  bucket = aws_s3_bucket.terraform_state_moveo.id
   versioning_configuration {
     status = "Enabled"
   }
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state_crypto_conf" {
-  bucket = aws_s3_bucket.terraform_state.bucket
+  bucket = aws_s3_bucket.terraform_state_moveo.bucket
   rule {
     apply_server_side_encryption_by_default {
       sse_algorithm = "AES256"
@@ -46,5 +46,5 @@ resource "aws_dynamodb_table" "terraform_locks" {
 }
 
 provider "aws" {
-  region = "eu-north-1"
+  region = "eu-west-1"
 }

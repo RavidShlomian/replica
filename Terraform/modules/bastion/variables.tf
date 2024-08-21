@@ -8,7 +8,7 @@ variable "instance_type" {
 variable "ami" {
   description = "Ubuntu machine image to use for ec2 instance"
   type        = string
-  default     = "ami-0914547665e6a707c" # Ubuntu 22.04 LTS // eu-north-1
+  default     = "ami-04e49d62cf88738f1" # Ubuntu 22.04 LTS // eu-west-1
 }
 
 variable "sg_id" {
@@ -17,4 +17,10 @@ variable "sg_id" {
 }
 variable "PbSubnet" {
     description = "public subnet for ec2"
+}
+
+variable "key_name" {
+  type = string
+  description = "bastion instance key pair"
+  default = "bastion-key"
 }
