@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .
+        working-directory: ./terraform-config
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
@@ -41,6 +41,7 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
+        working-directory: ./terraform-config
 
       - name: Terraform Init
         id: init
@@ -48,16 +49,19 @@ jobs:
           AWS_BUCKET_NAME: terraform-backend-bucket-moveo-ravid
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
         run: terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}" -backend-config="region=${AWS_REGION}"
+        working-directory: ./terraform-config
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
+        working-directory: ./terraform-config
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
         if: github.event_name == 'pull_request'
         continue-on-error: true
+        working-directory: ./terraform-config
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -103,3 +107,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+        working-directory: ./terraform-config
