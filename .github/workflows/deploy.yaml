@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./terraform-config
+        working-directory: .
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
@@ -34,14 +34,14 @@ jobs:
         with:
           terraform_version: 1.9.4 
       - name: Download Terraform Config from S3
-        run: aws s3 cp s3://terraform-backend-bucket-moveo-ravid/dev/terraform.tfstate ./terraform-config/ --recursive
+        run: aws s3 cp s3://terraform-backend-bucket-moveo-ravid/dev/terraform.tfstate . --recursive
 
 
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-        working-directory: ./terraform-config
+        working-directory: .
 
       - name: Terraform Init
         id: init
@@ -49,19 +49,19 @@ jobs:
           AWS_BUCKET_NAME: terraform-backend-bucket-moveo-ravid
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
         run: terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}" -backend-config="region=${AWS_REGION}"
-        working-directory: ./terraform-config
+        working-directory: .
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: ./terraform-config
+        working-directory: .
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
         if: github.event_name == 'pull_request'
         continue-on-error: true
-        working-directory: ./terraform-config
+        working-directory: .
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -107,4 +107,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-        working-directory: ./terraform-config
+        working-directory: .
