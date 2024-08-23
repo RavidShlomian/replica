@@ -8,7 +8,7 @@ terraform {
   #after the first initializtion i initilized remote backend in s3 bucket to ensure resilience of the state file 
   backend "s3" {
     bucket = "terraform-backend-bucket-moveo-ravid"
-    key    = "dev/terraform.tfstate"
+    key    = "terraform.tfstate"
     region = "eu-west-1"
   }
 }

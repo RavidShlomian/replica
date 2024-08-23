@@ -34,7 +34,7 @@ jobs:
         with:
           terraform_version: 1.9.4 
       - name: Download Terraform Config from S3
-        run: aws s3 cp s3://terraform-backend-bucket-moveo-ravid/dev/terraform.tfstate . --recursive
+        run: aws s3 cp s3://terraform-backend-bucket-moveo-ravid/terraform.tfstate . --recursive
 
 
       - name: Terraform fmt
