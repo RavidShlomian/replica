@@ -32,7 +32,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.9.4
+          terraform_version: 1.9.4 
+      - name: Download Terraform Config from S3
+        run: aws s3 cp s3://terraform-backend-bucket-moveo-ravid/dev/terraform.tfstate ./terraform-config/ --recursive
+
 
       - name: Terraform fmt
         id: fmt
