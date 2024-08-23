@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .
+        working-directory: ./Terraform
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
@@ -41,7 +41,7 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-        working-directory: .
+        working-directory: ./Terraform
 
       - name: Terraform Init
         id: init
@@ -52,19 +52,19 @@ jobs:
         working-directory: .
       - name: List Directory Contents
         run: ls -R .
-        working-directory: .
+        working-directory: ./Terraform
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: .
+        working-directory: ./Terraform
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
         if: github.event_name == 'pull_request'
         continue-on-error: true
-        working-directory: .
+        working-directory: ./Terraform
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -110,4 +110,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-        working-directory: .
+        working-directory: ./Terraform
