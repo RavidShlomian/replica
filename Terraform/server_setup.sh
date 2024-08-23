@@ -3,7 +3,7 @@
 
 echo "starting user_data script" > /var/log/user-data.log
 
-# Update the system
+# Update the system with auto approval
 sudo yum update -y
 
 # Adding the public key for ssh connections
