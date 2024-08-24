@@ -17,7 +17,7 @@ resource "aws_lb_listener" "listener" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
+    type             = "redirect"
     target_group_arn = aws_lb_target_group.tg.arn
   }
 }
